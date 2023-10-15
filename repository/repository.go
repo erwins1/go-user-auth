@@ -3,7 +3,6 @@ package repository
 
 import (
 	"database/sql"
-	"log"
 
 	_ "github.com/lib/pq"
 )
@@ -19,7 +18,6 @@ type NewRepositoryOptions struct {
 func NewRepository(opts NewRepositoryOptions) *Repository {
 	db, err := sql.Open("postgres", opts.Dsn)
 	if err != nil {
-		log.Printf("GAGAL INIT, dns : %s", opts.Dsn)
 		panic(err)
 	}
 	return &Repository{

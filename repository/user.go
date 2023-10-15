@@ -10,7 +10,6 @@ import (
 )
 
 func (r *Repository) InsertUser(ctx context.Context, in model.InsertUserReq) (out model.User, err error) {
-	log.Println(" TEST ", in.Salt, " - ", in.Password)
 	err = r.Db.QueryRowContext(ctx, queryInsertUser, in.FullName, in.PhoneNumber, in.Password, in.Salt).
 		Scan(&out.UserID, &out.FullName, &out.PhoneNumber)
 	if err != nil {
