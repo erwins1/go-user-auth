@@ -20,6 +20,7 @@ To run this project you need to have the following installed:
     ```
     go install github.com/golang/mock/mockgen@latest
     ```
+7. [Postman] Import user.json to postman for request example 
 
 ## Initiate The Project
 

@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "1c2ea634-efae-4b87-83c4-8ce97f6cad93",
+		"name": "random",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25566090"
+	},
+	"item": [
+		{
+			"name": "New Folder",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"full_name\" : \"test test\",\n    \"phone_number\": \"+6281123123\",\n    \"password\": \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone_number\": \"+6281123123\",\n    \"password\": \"Password123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc0Nzc0MzAsInVzZXJfaWQiOjF9.PReyqUP-ay-LgCre1lcwtsin7lFJEir6J1sgljOOE75ChtbNS_AgGBObtrr7meuZdp0_l-2W6qfY0Ed9ftSDR2eQHuRUSgEuTrMRJn_SSDsQ_V31vnCEFXSPHjuzOyshjff7htai2YGORpqRO6CsMl4fuCXaQwQv2SEQ2PikqN2AR9eiEGwjtTLcdSg2IglNAL_fUvN1OqwQpOdVvriHX_YHmnTtqfjhMHhgqvinCON2Gh-DD_XnH9OkgzQ7ftAtLUL50kBztIWaD0QIPxU6gkmOq6y9ySdknF-s4TiIVhRtjlEJaqkBFPk7zquFBm6d0jilKc5LlGalJRa4gKYoxg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/profile",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc0Nzc0MzAsInVzZXJfaWQiOjF9.PReyqUP-ay-LgCre1lcwtsin7lFJEir6J1sgljOOE75ChtbNS_AgGBObtrr7meuZdp0_l-2W6qfY0Ed9ftSDR2eQHuRUSgEuTrMRJn_SSDsQ_V31vnCEFXSPHjuzOyshjff7htai2YGORpqRO6CsMl4fuCXaQwQv2SEQ2PikqN2AR9eiEGwjtTLcdSg2IglNAL_fUvN1OqwQpOdVvriHX_YHmnTtqfjhMHhgqvinCON2Gh-DD_XnH9OkgzQ7ftAtLUL50kBztIWaD0QIPxU6gkmOq6y9ySdknF-s4TiIVhRtjlEJaqkBFPk7zquFBm6d0jilKc5LlGalJRa4gKYoxg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"full_name\" : \"test 1\",\n    \"phone_number\": \"+6281123123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/profile",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
