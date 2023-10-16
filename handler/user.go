@@ -5,9 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strings"
 
-	"github.com/SawitProRecruitment/UserService/common/jwt"
 	"github.com/SawitProRecruitment/UserService/common/model"
 	"github.com/SawitProRecruitment/UserService/common/validator"
 	"github.com/SawitProRecruitment/UserService/generated"
@@ -16,15 +14,14 @@ import (
 
 func (s *Server) GetProfile(ctx echo.Context) error {
 
-	authorization := ctx.Request().Header.Get("Authorization")
-	token := strings.TrimPrefix(authorization, "Bearer ")
-
-	jwtResult, err := jwt.Validate(token)
-	if err != nil {
-		return ctx.JSON(http.StatusForbidden, generated.ErrorResponse{Message: err.Error()})
+	userID, ok := ctx.Get("user_id").(int64)
+	if !ok {
+		log.Printf("[handler.GetProfile] fail get user id")
+		return ctx.JSON(http.StatusInternalServerError, generated.ErrorResponse{Message: "InternalServerError"})
 	}
+
 	user, err := s.Repository.GetUserByUserID(context.Background(), model.GetUserByUserIDReq{
-		UserID: jwtResult.UserID,
+		UserID: userID,
 	})
 	if err != nil {
 		log.Printf("[handler.GetProfile] GetUserByUserID err:  %v", err)
@@ -47,15 +44,9 @@ func (s *Server) PutProfile(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, generated.ErrorResponse{Message: err.Error()})
 	}
 
-	authorization := ctx.Request().Header.Get("Authorization")
-	token := strings.TrimPrefix(authorization, "Bearer ")
-
-	jwtResult, err := jwt.Validate(token)
-	if err != nil {
-		return ctx.JSON(http.StatusForbidden, generated.ErrorResponse{Message: err.Error()})
-	}
+	userID := ctx.Get("user_id").(int64)
 	err = s.Repository.UpdateUserByUserID(context.Background(), model.UpdateUserByUserIDReq{
-		UserID:      jwtResult.UserID,
+		UserID:      userID,
 		PhoneNumber: *request.PhoneNumber,
 		FullName:    *request.FullName,
 	})

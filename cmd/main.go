@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 
+	"github.com/SawitProRecruitment/UserService/common/middleware"
 	"github.com/SawitProRecruitment/UserService/generated"
 	"github.com/SawitProRecruitment/UserService/handler"
 	"github.com/SawitProRecruitment/UserService/repository"
@@ -14,7 +15,7 @@ func main() {
 	e := echo.New()
 
 	var server generated.ServerInterface = newServer()
-
+	initMiddleware(e)
 	generated.RegisterHandlers(e, server)
 	e.Logger.Fatal(e.Start(":1323"))
 }
@@ -28,4 +29,14 @@ func newServer() *handler.Server {
 		Repository: repo,
 	}
 	return handler.NewServer(opts)
+}
+
+func initMiddleware(e *echo.Echo) {
+	m := middleware.Init(middleware.Middleware{
+		ByPassAuthEndpoint: map[string]bool{
+			"POST /register": true,
+			"POST /login":    true,
+		},
+	})
+	e.Use(m.AuthTokenValidation)
 }
