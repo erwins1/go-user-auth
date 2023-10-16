@@ -21,7 +21,7 @@ func (s *Server) GetProfile(ctx echo.Context) error {
 	}
 
 	user, err := s.Repository.GetUserByUserID(context.Background(), model.GetUserByUserIDReq{
-		UserID: userID,
+		UserID: int64(userID),
 	})
 	if err != nil {
 		log.Printf("[handler.GetProfile] GetUserByUserID err:  %v", err)
@@ -44,11 +44,22 @@ func (s *Server) PutProfile(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, generated.ErrorResponse{Message: err.Error()})
 	}
 
-	userID := ctx.Get("user_id").(int64)
+	userID, ok := ctx.Get("user_id").(int64)
+	if !ok {
+		log.Printf("[handler.GetProfile] fail get user id")
+		return ctx.JSON(http.StatusInternalServerError, generated.ErrorResponse{Message: "InternalServerError"})
+	}
+	var fullName, phoneNumber string
+	if request.FullName != nil {
+		fullName = *request.FullName
+	}
+	if request.PhoneNumber != nil {
+		phoneNumber = *request.PhoneNumber
+	}
 	err = s.Repository.UpdateUserByUserID(context.Background(), model.UpdateUserByUserIDReq{
 		UserID:      userID,
-		PhoneNumber: *request.PhoneNumber,
-		FullName:    *request.FullName,
+		PhoneNumber: phoneNumber,
+		FullName:    fullName,
 	})
 	if err != nil {
 		log.Printf("[handler.PutProfile] UpdateUserByUserID err:  %v", err)

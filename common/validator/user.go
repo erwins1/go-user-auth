@@ -12,7 +12,7 @@ func ValidateBodyUpdateUser(param generated.PutProfileJSONRequestBody) (err erro
 		return errors.New("at least need full_name or phone_number")
 	}
 	if param.FullName != nil {
-		err = validateFullName(*param.PhoneNumber)
+		err = validateFullName(*param.FullName)
 		if err != nil {
 			return err
 		}

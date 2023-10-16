@@ -6,11 +6,15 @@ import (
 	"testing"
 
 	"github.com/SawitProRecruitment/UserService/repository"
+	"github.com/golang/mock/gomock"
 	"github.com/labstack/echo/v4"
 )
 
 func TestServer_PostRegister(t *testing.T) {
-	mockRepository := new(repository.MockRepositoryInterface)
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockRepository := repository.NewMockRepositoryInterface(ctrl)
 
 	type args struct {
 		ctx echo.Context
@@ -49,7 +53,10 @@ func TestServer_PostRegister(t *testing.T) {
 }
 
 func TestServer_PostLogin(t *testing.T) {
-	mockRepository := new(repository.MockRepositoryInterface)
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockRepository := repository.NewMockRepositoryInterface(ctrl)
 
 	type args struct {
 		ctx echo.Context
